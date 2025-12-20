@@ -27,7 +27,7 @@ export function Header() {
               <Shield className="h-8 w-8 text-primary transition-all duration-300 group-hover:text-accent" />
               <div className="absolute inset-0 blur-lg bg-primary/30 group-hover:bg-accent/30 transition-all duration-300" />
             </div>
-            <span className="text-xl font-bold gradient-text">Learning Perfus</span>
+            <span className="text-xl font-bold gradient-text">Cyber Learn AI</span>
           </a>
 
           {/* Desktop Navigation */}

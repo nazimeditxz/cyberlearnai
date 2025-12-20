@@ -1,11 +1,13 @@
-import { Shield, Mail, Github, Linkedin, Youtube, Facebook, Instagram, Twitter } from "lucide-react";
+import { Shield, Mail, Github, Linkedin, Youtube, Facebook, Instagram, Twitter, MessageCircle, Users } from "lucide-react";
 
 const footerLinks = {
   Product: [
     { name: "Features", href: "#features" },
     { name: "Pricing", href: "#pricing" },
     { name: "Labs", href: "#labs" },
+    { name: "Practice", href: "#practice" },
     { name: "Community", href: "#community" },
+    { name: "AI Assistant", href: "#ai-assistant" },
   ],
   Resources: [
     { name: "News", href: "#news" },
@@ -13,28 +15,34 @@ const footerLinks = {
     { name: "Blog", href: "#blog" },
     { name: "Tutorials", href: "#tutorials" },
     { name: "FAQ", href: "#faq" },
+    { name: "Cybersecurity Glossary", href: "#glossary" },
+    { name: "Study Guides", href: "#guides" },
   ],
   Company: [
-    { name: "About", href: "#about" },
+    { name: "About Us", href: "#about" },
     { name: "Careers", href: "#careers" },
     { name: "Contact", href: "#contact" },
-    { name: "Press", href: "#press" },
+    { name: "Press & Media", href: "#press" },
+    { name: "Partners", href: "#partners" },
   ],
   Legal: [
-    { name: "Privacy", href: "#privacy" },
-    { name: "Terms", href: "#terms" },
+    { name: "Privacy Policy", href: "#privacy" },
+    { name: "Terms of Service", href: "#terms" },
     { name: "Security", href: "#security" },
-    { name: "Cookies", href: "#cookies" },
+    { name: "Cookie Policy", href: "#cookies" },
+    { name: "Disclaimer", href: "#disclaimer" },
   ],
 };
 
 const socialLinks = [
-  { name: "GitHub", icon: Github, href: "#" },
-  { name: "LinkedIn", icon: Linkedin, href: "#" },
-  { name: "YouTube", icon: Youtube, href: "#" },
-  { name: "Facebook", icon: Facebook, href: "#" },
-  { name: "Instagram", icon: Instagram, href: "#" },
-  { name: "Twitter", icon: Twitter, href: "#" },
+  { name: "GitHub", icon: Github, href: "https://github.com/cyberlearnai" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/company/cyberlearnai" },
+  { name: "YouTube", icon: Youtube, href: "https://youtube.com/@cyberlearnai" },
+  { name: "Facebook", icon: Facebook, href: "https://facebook.com/cyberlearnai" },
+  { name: "Instagram", icon: Instagram, href: "https://instagram.com/cyberlearnai" },
+  { name: "Twitter", icon: Twitter, href: "https://twitter.com/cyberlearnai" },
+  { name: "Discord", icon: MessageCircle, href: "https://discord.gg/cyberlearnai" },
+  { name: "Reddit", icon: Users, href: "https://reddit.com/r/cyberlearnai" },
 ];
 
 export function Footer() {
@@ -46,11 +54,20 @@ export function Footer() {
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <a href="#home" className="flex items-center gap-2 mb-4 group">
               <Shield className="h-8 w-8 text-primary group-hover:text-accent transition-colors" />
-              <span className="text-xl font-bold gradient-text">Learning Perfus</span>
+              <span className="text-xl font-bold gradient-text">Cyber Learn AI</span>
             </a>
             <p className="text-muted-foreground text-sm mb-6 max-w-xs">
-              Your gateway to cybersecurity excellence. Learn, practice, and master ethical hacking skills.
+              Bangladesh's first AI-powered cybersecurity learning platform. From beginner to job-ready ethical hacker — learn, practice, and master cybersecurity skills with structured guidance.
             </p>
+            <div className="flex flex-col gap-2 mb-6">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Mail className="h-4 w-4 text-primary" />
+                <span>contact@cyberlearnai.com</span>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Based in Dhaka, Bangladesh 🇧🇩
+              </p>
+            </div>
             <div className="flex gap-3">
               {socialLinks.map((social) => (
                 <a
@@ -88,11 +105,10 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Learning Perfus. All rights reserved.
+            © {new Date().getFullYear()} Cyber Learn AI. All rights reserved. Made with ❤️ in Bangladesh.
           </p>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Mail className="h-4 w-4" />
-            <span>contact@learningperfus.com</span>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <span>Empowering the next generation of ethical hackers</span>
           </div>
         </div>
       </div>
