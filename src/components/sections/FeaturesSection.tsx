@@ -7,8 +7,10 @@ import {
   Briefcase, 
   FolderOpen, 
   Users, 
-  FileText 
+  FileText,
+  ArrowRight
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -16,54 +18,63 @@ const features = [
     title: "AI Study Assistant",
     description: "Learn cybersecurity fundamentals to advanced topics with personalized AI explanations, quizzes, and exercises.",
     color: "primary",
+    link: "/ai-assistant",
   },
   {
     icon: Target,
     title: "Practice Mode",
     description: "Safe simulation of ethical hacking workflows: Reconnaissance → Scanning → Exploitation → Securing.",
-    color: "accent",
+    color: "primary",
+    link: "/practice",
   },
   {
     icon: FlaskConical,
     title: "Hands-On Labs",
     description: "Structured CTF-style challenges from beginner to advanced. Practice web security in sandbox environments.",
     color: "primary",
+    link: "/labs",
   },
   {
     icon: Shield,
     title: "Security Awareness",
     description: "Learn to detect phishing, scams common in Bangladesh (bKash, Facebook), and social engineering attacks.",
-    color: "accent",
+    color: "primary",
+    link: "/learn",
   },
   {
     icon: Trophy,
     title: "Skill Challenges",
     description: "Weekly challenges, quizzes, badges, and leaderboards. Gamified learning to keep you motivated.",
     color: "primary",
+    link: "/practice",
   },
   {
     icon: Briefcase,
     title: "Career Guidance",
     description: "Career paths (SOC Analyst, Pentester, Red Team), certifications (CEH, OSCP), and interview prep.",
-    color: "accent",
+    color: "primary",
+    link: "/careers",
   },
   {
     icon: FolderOpen,
     title: "Portfolio Builder",
     description: "Organize your projects, lab completions, and reports. Build a job-ready cybersecurity portfolio.",
     color: "primary",
+    link: "/resources",
   },
   {
     icon: Users,
     title: "Community",
     description: "Connect with mentors, join study groups, and participate in moderated discussions.",
-    color: "accent",
+    color: "primary",
+    link: "/community",
   },
   {
     icon: FileText,
     title: "Resources",
     description: "Access tutorials, blogs, FAQs, cybersecurity news, and comprehensive study references.",
-    color: "primary",
+    color: "accent",
+    link: "/resources",
   },
 ];
 
@@ -88,33 +99,42 @@ export function FeaturesSection() {
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <div
+            <Link
               key={feature.title}
-              className="group relative p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_hsl(175_80%_50%/0.15)]"
+              to={feature.link}
+              className="group relative p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_hsl(175_80%_50%/0.15)] cursor-pointer block"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Icon */}
               <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300 ${
                 feature.color === "primary" 
-                  ? "bg-primary/10 text-primary group-hover:bg-primary/20" 
-                  : "bg-accent/10 text-accent group-hover:bg-accent/20"
+                  ? "bg-primary/10 text-primary group-hover:bg-primary/20 border border-primary/30" 
+                  : "bg-accent/10 text-accent group-hover:bg-accent/20 border border-accent/30"
               }`}>
                 <feature.icon className="h-6 w-6" />
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+              <h3 className={`text-lg font-semibold mb-2 transition-colors ${
+                feature.color === "accent" ? "text-accent" : "text-foreground group-hover:text-primary"
+              }`}>
                 {feature.title}
               </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                 {feature.description}
               </p>
+
+              {/* Learn More Link */}
+              <div className="flex items-center gap-1 text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>Learn more</span>
+                <ArrowRight className="h-3 w-3" />
+              </div>
 
               {/* Hover Indicator */}
               <div className={`absolute bottom-0 left-0 right-0 h-1 rounded-b-xl opacity-0 group-hover:opacity-100 transition-opacity ${
                 feature.color === "primary" ? "bg-primary" : "bg-accent"
               }`} />
-            </div>
+            </Link>
           ))}
         </div>
       </div>
