@@ -19,7 +19,9 @@ export function HeroSection() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary border border-primary/30 mb-10 animate-fade-in">
             <span className="text-primary font-mono text-sm">&gt;_</span>
-            <span className="text-sm text-muted-foreground font-mono">Initializing AI-Powered Learning_</span>
+            <span className="text-sm text-muted-foreground font-mono overflow-hidden whitespace-nowrap border-r-2 border-primary animate-typewriter">
+              Initializing AI-Powered Learning
+            </span>
           </div>
 
           {/* Main Heading */}

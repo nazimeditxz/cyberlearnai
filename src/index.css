@@ -180,6 +180,21 @@
     to { opacity: 1; }
   }
 
+  .animate-typewriter {
+    animation: typewriter 2.5s steps(32) 0.5s forwards, blink-caret 0.75s step-end infinite;
+    width: 0;
+  }
+
+  @keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes blink-caret {
+    0%, 100% { border-color: hsl(var(--primary)); }
+    50% { border-color: transparent; }
+  }
+
   .grid-bg {
     background-image: 
       linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
