@@ -326,10 +326,47 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      quizzes_public: {
+        Row: {
+          created_at: string | null
+          explanation: string | null
+          id: string | null
+          lesson_id: string | null
+          options: Json | null
+          question: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          explanation?: string | null
+          id?: string | null
+          lesson_id?: string | null
+          options?: Json | null
+          question?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          explanation?: string | null
+          id?: string | null
+          lesson_id?: string | null
+          options?: Json | null
+          question?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quizzes_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
-      [_ in never]: never
+      check_quiz_answer: {
+        Args: { p_quiz_id: string; p_selected_answer: number }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
