@@ -324,6 +324,39 @@ export type Database = {
           },
         ]
       }
+      user_subscriptions: {
+        Row: {
+          active: boolean
+          created_at: string
+          expires_at: string | null
+          id: string
+          plan_type: string
+          started_at: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          plan_type?: string
+          started_at?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          plan_type?: string
+          started_at?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       quizzes_public: {
@@ -367,6 +400,7 @@ export type Database = {
         Args: { p_quiz_id: string; p_selected_answer: number }
         Returns: Json
       }
+      has_premium_access: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
