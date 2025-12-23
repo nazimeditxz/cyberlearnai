@@ -1,82 +1,18 @@
+import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { BookOpen, Code, Shield, Server, Terminal, Lock, Globe, Database } from "lucide-react";
+import { BookOpen, Clock, BarChart3, Loader2, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCourses } from "@/hooks/useCourses";
+import { useAuth } from "@/contexts/AuthContext";
 
-const learningModules = [
-  {
-    title: "Cybersecurity Fundamentals",
-    description: "Learn the core concepts of information security, CIA triad, and security principles.",
-    icon: Shield,
-    level: "Beginner",
-    lessons: 12,
-    duration: "4 hours",
-  },
-  {
-    title: "Networking Essentials",
-    description: "Master TCP/IP, OSI model, protocols, and network security fundamentals.",
-    icon: Globe,
-    level: "Beginner",
-    lessons: 15,
-    duration: "6 hours",
-  },
-  {
-    title: "Linux for Hackers",
-    description: "Command line mastery, file systems, permissions, and security tools on Linux.",
-    icon: Terminal,
-    level: "Beginner",
-    lessons: 18,
-    duration: "8 hours",
-  },
-  {
-    title: "Programming for Security",
-    description: "Python and Bash scripting for automation, exploitation, and security tools.",
-    icon: Code,
-    level: "Intermediate",
-    lessons: 20,
-    duration: "10 hours",
-  },
-  {
-    title: "Web Application Security",
-    description: "OWASP Top 10, SQL injection, XSS, CSRF, and web vulnerability assessment.",
-    icon: Server,
-    level: "Intermediate",
-    lessons: 16,
-    duration: "8 hours",
-  },
-  {
-    title: "Cryptography & Encryption",
-    description: "Symmetric, asymmetric encryption, hashing, digital signatures, and PKI.",
-    icon: Lock,
-    level: "Intermediate",
-    lessons: 14,
-    duration: "6 hours",
-  },
-  {
-    title: "Database Security",
-    description: "SQL injection prevention, database hardening, and secure data management.",
-    icon: Database,
-    level: "Advanced",
-    lessons: 12,
-    duration: "5 hours",
-  },
-  {
-    title: "Advanced Penetration Testing",
-    description: "Full VAPT methodology, exploit development, and professional reporting.",
-    icon: BookOpen,
-    level: "Advanced",
-    lessons: 24,
-    duration: "12 hours",
-  },
-];
-
-const getLevelColor = (level: string) => {
-  switch (level) {
-    case "Beginner":
+const getDifficultyColor = (difficulty: string) => {
+  switch (difficulty) {
+    case "beginner":
       return "text-terminal-green bg-terminal-green/10 border-terminal-green/30";
-    case "Intermediate":
+    case "intermediate":
       return "text-cyber-blue bg-cyber-blue/10 border-cyber-blue/30";
-    case "Advanced":
+    case "advanced":
       return "text-accent bg-accent/10 border-accent/30";
     default:
       return "text-muted-foreground bg-secondary";
@@ -84,6 +20,9 @@ const getLevelColor = (level: string) => {
 };
 
 export default function LearnPage() {
+  const { data: courses, isLoading, error } = useCourses();
+  const { user } = useAuth();
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -102,54 +41,89 @@ export default function LearnPage() {
                 From absolute beginner to job-ready ethical hacker. Our AI-powered curriculum adapts to your learning pace and guides you through comprehensive cybersecurity education.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Button variant="hero" size="lg">
-                  Start Learning Free
-                </Button>
-                <Button variant="outline" size="lg">
-                  View Learning Path
-                </Button>
+                {!user ? (
+                  <Link to="/auth">
+                    <Button variant="hero" size="lg">
+                      Start Learning Free
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button variant="hero" size="lg">
+                    Continue Learning
+                  </Button>
+                )}
+                <Link to="/ai-assistant">
+                  <Button variant="outline" size="lg">
+                    Ask AI Tutor
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Learning Modules */}
+        {/* Courses Grid */}
         <section className="py-16 lg:py-24">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Learning Modules</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Comprehensive courses designed for Bangladeshi students, covering everything from basics to advanced penetration testing.
+                Comprehensive courses designed for students, covering everything from basics to advanced penetration testing.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {learningModules.map((module, index) => (
-                <div
-                  key={index}
-                  className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                      <module.icon className="h-6 w-6 text-primary" />
+            {isLoading ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            ) : error ? (
+              <div className="text-center py-12">
+                <p className="text-destructive">Failed to load courses. Please try again.</p>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {courses?.map((course) => (
+                  <Link
+                    key={course.id}
+                    to={`/course/${course.id}`}
+                    className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <BookOpen className="h-6 w-6 text-primary" />
+                      </div>
+                      <div className="flex gap-2">
+                        {course.is_premium && (
+                          <span className="px-2 py-1 text-xs font-medium rounded-full bg-accent/10 text-accent border border-accent/30">
+                            <Lock className="h-3 w-3 inline mr-1" />
+                            Premium
+                          </span>
+                        )}
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full border capitalize ${getDifficultyColor(course.difficulty)}`}>
+                          {course.difficulty}
+                        </span>
+                      </div>
                     </div>
-                    <span className={`px-2 py-1 text-xs font-medium rounded-full border ${getLevelColor(module.level)}`}>
-                      {module.level}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                    {module.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {module.description}
-                  </p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-border pt-4">
-                    <span>{module.lessons} Lessons</span>
-                    <span>{module.duration}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+                    <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                      {course.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {course.description}
+                    </p>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-border pt-4">
+                      <span className="flex items-center gap-1">
+                        <BarChart3 className="h-3 w-3" />
+                        {course.category}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {course.duration_hours || 0}h
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
