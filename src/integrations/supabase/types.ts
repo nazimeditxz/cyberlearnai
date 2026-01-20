@@ -400,6 +400,16 @@ export type Database = {
         Args: { p_quiz_id: string; p_selected_answer: number }
         Returns: Json
       }
+      get_quiz_questions: {
+        Args: { p_lesson_id: string }
+        Returns: {
+          created_at: string
+          id: string
+          lesson_id: string
+          options: Json
+          question: string
+        }[]
+      }
       has_premium_access: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
